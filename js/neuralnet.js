@@ -63,10 +63,10 @@ function NeuralNetwork() {
 	};
 
 	// neuron
-	this.neuronSizeMultiplier = 0.5;
+	this.neuronSizeMultiplier = 1;
 	this.spriteTextureNeuron = TEXTURES.electric;
 	this.neuronColor = '#28b1a0';
-	this.neuronOpacity = 0.5;
+	this.neuronOpacity = 0.95;
 	this.neuronsGeom = new THREE.Geometry();
 
 	this.neuronUniforms = {

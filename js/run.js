@@ -24,7 +24,7 @@ function run() {
 	renderer.clear();
 	update();
 	renderer.render( scene, camera );
-	// stats.update();
+	stats.update();
 	FRAME_COUNT ++;
 
 }
