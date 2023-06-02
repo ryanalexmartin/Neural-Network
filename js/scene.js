@@ -16,12 +16,10 @@ var FRAME_COUNT = 0;
 
 // ---- Settings
 var sceneSettings = {
-
 	pause: false,
-	bgColor: 0x111113,
+	bgColor: 0x010c14,
 	enableGridHelper: false,
 	enableAxisHelper: false
-
 };
 
 // ---- Scene
@@ -32,7 +30,8 @@ scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, screenRatio, 10, 5000 );
 // camera orbit control
 cameraCtrl = new THREE.OrbitControls( camera, container );
-cameraCtrl.object.position.y = 150;
+cameraCtrl.object.position.y = 1;
+cameraCtrl.enabled = false;
 cameraCtrl.update();
 
 // ---- Renderer
@@ -46,25 +45,31 @@ renderer.setClearColor( sceneSettings.bgColor, 1 );
 renderer.autoClear = false;
 container.appendChild( renderer.domElement );
 
+// ---- Resize once to match browser's initial size
+camera.aspect = screenRatio;
+camera.updateProjectionMatrix();
+renderer.setSize( WIDTH, HEIGHT );
+renderer.setPixelRatio( pixelRatio );
+
 // ---- Stats
-stats = new Stats();
-container.appendChild( stats.domElement );
+// stats = new Stats();
+// container.appendChild( stats.domElement );
 
 // ---- grid & axis helper
-var gridHelper = new THREE.GridHelper( 600, 50 );
-gridHelper.setColors( 0x00bbff, 0xffffff );
-gridHelper.material.opacity = 0.1;
-gridHelper.material.transparent = true;
-gridHelper.position.y = -300;
-scene.add( gridHelper );
+// var gridHelper = new THREE.GridHelper( 600, 50 );
+// gridHelper.setColors( 0x00bbff, 0xffffff );
+// gridHelper.material.opacity = 0.1;
+// gridHelper.material.transparent = true;
+// gridHelper.position.y = -300;
+// scene.add( gridHelper );
 
-var axisHelper = new THREE.AxisHelper( 50 );
-scene.add( axisHelper );
+// var axisHelper = new THREE.AxisHelper( 50 );
+// scene.add( axisHelper );
 
-function updateHelpers() {
-	axisHelper.visible = sceneSettings.enableAxisHelper;
-	gridHelper.visible = sceneSettings.enableGridHelper;
-}
+// function updateHelpers() {
+// 	axisHelper.visible = sceneSettings.enableAxisHelper;
+// 	gridHelper.visible = sceneSettings.enableGridHelper;
+// }
 
 /*
 // ---- Lights

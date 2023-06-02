@@ -16,11 +16,11 @@ function NeuralNetwork() {
 		*/
 
 		verticesSkipStep: 2,
-		maxAxonDist: 10,
-		maxConnectionsPerNeuron: 6,
-		signalMinSpeed: 1.75,
-		signalMaxSpeed: 3.25,
-		currentMaxSignals: 3000,
+		maxAxonDist: 12,
+		maxConnectionsPerNeuron: 12,
+		signalMinSpeed: 1.9,
+		signalMaxSpeed: 3,
+		currentMaxSignals: 1000,
 		limitSignals: 10000
 
 	};
@@ -38,7 +38,7 @@ function NeuralNetwork() {
 
 	// axon
 	this.axonOpacityMultiplier = 0.5;
-	this.axonColor = '#ffffff';
+	this.axonColor = '#13b6d9';
 	this.axonGeom = new THREE.BufferGeometry();
 	this.axonPositions = [];
 	this.axonIndices = [];
@@ -63,10 +63,10 @@ function NeuralNetwork() {
 	};
 
 	// neuron
-	this.neuronSizeMultiplier = 1.0;
+	this.neuronSizeMultiplier = 0.5;
 	this.spriteTextureNeuron = TEXTURES.electric;
-	this.neuronColor = '#ffffff';
-	this.neuronOpacity = 0.75;
+	this.neuronColor = '#28b1a0';
+	this.neuronOpacity = 0.22;
 	this.neuronsGeom = new THREE.Geometry();
 
 	this.neuronUniforms = {
@@ -147,7 +147,7 @@ NeuralNetwork.prototype.initNeurons = function ( inputVertices ) {
 
 	// set neuron attributes value
 	for ( i = 0; i < this.components.neurons.length; i++ ) {
-		this.neuronAttributes.color.value[ i ] = new THREE.Color( '#ffffff' ); // initial neuron color
+		this.neuronAttributes.color.value[ i ] = new THREE.Color( '#28b1a0' ); // initial neuron color
 		this.neuronAttributes.size.value[ i ] = THREE.Math.randFloat( 0.75, 3.0 ); // initial neuron size
 	}
 

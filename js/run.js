@@ -2,13 +2,15 @@
 
 function update() {
 
-	updateHelpers();
+	// updateHelpers();
 
 	if ( !sceneSettings.pause ) {
 
+		cameraCtrl.object.rotation.x -= 0.0003;
+
 		var deltaTime = clock.getDelta();
 		neuralNet.update( deltaTime );
-		updateGuiInfo();
+		// updateGuiInfo();
 
 	}
 
@@ -22,7 +24,7 @@ function run() {
 	renderer.clear();
 	update();
 	renderer.render( scene, camera );
-	stats.update();
+	// stats.update();
 	FRAME_COUNT ++;
 
 }

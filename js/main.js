@@ -8,7 +8,7 @@ function main() {
 	var neuralNet = window.neuralNet = new NeuralNetwork();
 	scene.add( neuralNet.meshComponents );
 
-	initGui();
+	// initGui();
 
 	run();
 
