@@ -34,6 +34,10 @@ $( function () {
 
 
 function onWindowResize() {
+	if (/Mobi|Android/i.test(navigator.userAgent)) {
+		// do nothing if on mobile platform
+		return;
+	}
 
 	WIDTH = window.innerWidth;
 	HEIGHT = window.innerHeight;
