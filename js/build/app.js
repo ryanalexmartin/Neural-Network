@@ -122,8 +122,8 @@ function ParticlePool( poolSize ) {
 
 	this.offScreenPos = new THREE.Vector3( 9999, 9999, 9999 );
 
-	this.pColor = '#ffffff';
-	this.pSize = 0.6;
+	this.pColor = '#37edb8';
+	this.pSize = 0.2;
 
 	for ( var ii = 0; ii < this.poolSize; ii++ ) {
 		this.particles[ ii ] = new Particle( this );
@@ -284,11 +284,11 @@ function NeuralNetwork() {
 		*/
 
 		verticesSkipStep: 2,
-		maxAxonDist: 10,
-		maxConnectionsPerNeuron: 6,
-		signalMinSpeed: 1.75,
-		signalMaxSpeed: 3.25,
-		currentMaxSignals: 3000,
+		maxAxonDist: 12,
+		maxConnectionsPerNeuron: 12,
+		signalMinSpeed: 1.9,
+		signalMaxSpeed: 3,
+		currentMaxSignals: 1000,
 		limitSignals: 10000
 
 	};
@@ -306,7 +306,7 @@ function NeuralNetwork() {
 
 	// axon
 	this.axonOpacityMultiplier = 0.5;
-	this.axonColor = '#ffffff';
+	this.axonColor = '#13b6d9';
 	this.axonGeom = new THREE.BufferGeometry();
 	this.axonPositions = [];
 	this.axonIndices = [];
@@ -331,10 +331,10 @@ function NeuralNetwork() {
 	};
 
 	// neuron
-	this.neuronSizeMultiplier = 1.0;
+	this.neuronSizeMultiplier = 0.5;
 	this.spriteTextureNeuron = TEXTURES.electric;
-	this.neuronColor = '#ffffff';
-	this.neuronOpacity = 0.75;
+	this.neuronColor = '#28b1a0';
+	this.neuronOpacity = 0.22;
 	this.neuronsGeom = new THREE.Geometry();
 
 	this.neuronUniforms = {
@@ -415,7 +415,7 @@ NeuralNetwork.prototype.initNeurons = function ( inputVertices ) {
 
 	// set neuron attributes value
 	for ( i = 0; i < this.components.neurons.length; i++ ) {
-		this.neuronAttributes.color.value[ i ] = new THREE.Color( '#ffffff' ); // initial neuron color
+		this.neuronAttributes.color.value[ i ] = new THREE.Color( '#28b1a0' ); // initial neuron color
 		this.neuronAttributes.size.value[ i ] = THREE.Math.randFloat( 0.75, 3.0 ); // initial neuron size
 	}
 
@@ -709,12 +709,10 @@ var FRAME_COUNT = 0;
 
 // ---- Settings
 var sceneSettings = {
-
 	pause: false,
-	bgColor: 0x111113,
+	bgColor: 0x010c14,
 	enableGridHelper: false,
 	enableAxisHelper: false
-
 };
 
 // ---- Scene
@@ -725,7 +723,8 @@ scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, screenRatio, 10, 5000 );
 // camera orbit control
 cameraCtrl = new THREE.OrbitControls( camera, container );
-cameraCtrl.object.position.y = 150;
+cameraCtrl.object.position.y = 1;
+cameraCtrl.enabled = false;
 cameraCtrl.update();
 
 // ---- Renderer
@@ -739,25 +738,31 @@ renderer.setClearColor( sceneSettings.bgColor, 1 );
 renderer.autoClear = false;
 container.appendChild( renderer.domElement );
 
+// ---- Resize once to match browser's initial size
+camera.aspect = screenRatio;
+camera.updateProjectionMatrix();
+renderer.setSize( WIDTH, HEIGHT );
+renderer.setPixelRatio( pixelRatio );
+
 // ---- Stats
-stats = new Stats();
-container.appendChild( stats.domElement );
+// stats = new Stats();
+// container.appendChild( stats.domElement );
 
 // ---- grid & axis helper
-var gridHelper = new THREE.GridHelper( 600, 50 );
-gridHelper.setColors( 0x00bbff, 0xffffff );
-gridHelper.material.opacity = 0.1;
-gridHelper.material.transparent = true;
-gridHelper.position.y = -300;
-scene.add( gridHelper );
+// var gridHelper = new THREE.GridHelper( 600, 50 );
+// gridHelper.setColors( 0x00bbff, 0xffffff );
+// gridHelper.material.opacity = 0.1;
+// gridHelper.material.transparent = true;
+// gridHelper.position.y = -300;
+// scene.add( gridHelper );
 
-var axisHelper = new THREE.AxisHelper( 50 );
-scene.add( axisHelper );
+// var axisHelper = new THREE.AxisHelper( 50 );
+// scene.add( axisHelper );
 
-function updateHelpers() {
-	axisHelper.visible = sceneSettings.enableAxisHelper;
-	gridHelper.visible = sceneSettings.enableGridHelper;
-}
+// function updateHelpers() {
+// 	axisHelper.visible = sceneSettings.enableAxisHelper;
+// 	gridHelper.visible = sceneSettings.enableGridHelper;
+// }
 
 /*
 // ---- Lights
@@ -786,7 +791,7 @@ function main() {
 	var neuralNet = window.neuralNet = new NeuralNetwork();
 	scene.add( neuralNet.meshComponents );
 
-	initGui();
+	// initGui();
 
 	run();
 
@@ -846,13 +851,15 @@ function updateGuiInfo() {
 
 function update() {
 
-	updateHelpers();
+	// updateHelpers();
 
 	if ( !sceneSettings.pause ) {
 
+		cameraCtrl.object.rotation.x -= 0.0003;
+
 		var deltaTime = clock.getDelta();
 		neuralNet.update( deltaTime );
-		updateGuiInfo();
+		// updateGuiInfo();
 
 	}
 
@@ -866,7 +873,7 @@ function run() {
 	renderer.clear();
 	update();
 	renderer.render( scene, camera );
-	stats.update();
+	// stats.update();
 	FRAME_COUNT ++;
 
 }
