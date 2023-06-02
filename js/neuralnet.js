@@ -37,7 +37,7 @@ function NeuralNetwork() {
 	};
 
 	// axon
-	this.axonOpacityMultiplier = 0.5;
+	this.axonOpacityMultiplier = 1.5;
 	this.axonColor = '#13b6d9';
 	this.axonGeom = new THREE.BufferGeometry();
 	this.axonPositions = [];
@@ -66,7 +66,7 @@ function NeuralNetwork() {
 	this.neuronSizeMultiplier = 0.5;
 	this.spriteTextureNeuron = TEXTURES.electric;
 	this.neuronColor = '#28b1a0';
-	this.neuronOpacity = 0.22;
+	this.neuronOpacity = 0.5;
 	this.neuronsGeom = new THREE.Geometry();
 
 	this.neuronUniforms = {
