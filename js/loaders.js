@@ -59,8 +59,13 @@ OBJloader.load( 'models/brain_vertex_low.obj', function ( model ) {
 
 var TEXTURES = {};
 var textureLoader = new THREE.TextureLoader( loadingManager );
+
 textureLoader.load( 'sprites/electric.png', function ( tex ) {
 
 	TEXTURES.electric = tex;
 
 } );
+
+textureLoader.load('sprites/img_4721.png', function(tex) {
+    TEXTURES.input_image_01 = tex;
+});

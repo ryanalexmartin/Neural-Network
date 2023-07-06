@@ -685,16 +685,23 @@ OBJloader.load( 'models/brain_vertex_low.obj', function ( model ) {
 
 var TEXTURES = {};
 var textureLoader = new THREE.TextureLoader( loadingManager );
+
 textureLoader.load( 'sprites/electric.png', function ( tex ) {
 
 	TEXTURES.electric = tex;
 
 } );
 
+textureLoader.load('sprites/img_4721.png', function(tex) {
+    TEXTURES.input_image_01 = tex;
+});
+// var GSAP = require('gsap');
+// var SVG = require('svg.js');
+
 // Scene --------------------------------------------------------
 /* exported updateHelpers */
 
-if ( !Detector.webgl ) {
+if (!Detector.webgl) {
 	Detector.addGetWebGLMessage();
 }
 
@@ -716,33 +723,33 @@ var sceneSettings = {
 };
 
 // ---- Scene
-container = document.getElementById( 'canvas-container' );
+container = document.getElementById('canvas-container');
 scene = new THREE.Scene();
 
 // ---- Camera
-camera = new THREE.PerspectiveCamera( 75, screenRatio, 10, 5000 );
+camera = new THREE.PerspectiveCamera(75, screenRatio, 10, 5000);
 // camera orbit control
-cameraCtrl = new THREE.OrbitControls( camera, container );
+cameraCtrl = new THREE.OrbitControls(camera, container);
 cameraCtrl.object.position.y = 1;
 cameraCtrl.enabled = false;
 cameraCtrl.update();
 
 // ---- Renderer
-renderer = new THREE.WebGLRenderer( {
+renderer = new THREE.WebGLRenderer({
 	antialias: true,
 	alpha: true
-} );
-renderer.setSize( WIDTH, HEIGHT );
-renderer.setPixelRatio( pixelRatio );
-renderer.setClearColor( sceneSettings.bgColor, 1 );
+});
+renderer.setSize(WIDTH, HEIGHT);
+renderer.setPixelRatio(pixelRatio);
+renderer.setClearColor(sceneSettings.bgColor, 1);
 renderer.autoClear = false;
-container.appendChild( renderer.domElement );
+container.appendChild(renderer.domElement);
 
 // ---- Resize once to match browser's initial size
 camera.aspect = screenRatio;
 camera.updateProjectionMatrix();
-renderer.setSize( WIDTH, HEIGHT );
-renderer.setPixelRatio( pixelRatio );
+renderer.setSize(WIDTH, HEIGHT);
+renderer.setPixelRatio(pixelRatio);
 
 // ---- Stats
 // stats = new Stats();
@@ -780,6 +787,156 @@ scene.add( light );
 light = new THREE.AmbientLight( 0x111111 );
 scene.add( light );
 */
+
+
+
+// vector animation (new)
+
+
+function createParticlesFromImage(imageTexture) {
+	// Create a canvas to draw the image
+	var canvas = document.createElement('canvas');
+	var context = canvas.getContext('2d');
+
+	// Draw the image onto the canvas
+	canvas.width = imageTexture.image.width;
+	canvas.height = imageTexture.image.height;
+	context.drawImage(imageTexture.image, 0, 0, canvas.width, canvas.height);
+
+	// Get the image data from the canvas
+	var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+	var data = imageData.data;
+
+	// Create the particle system geometry
+	var geometry = new THREE.Geometry();
+
+	// For each pixel in the image, create a vertex in the geometry
+	for (var y = 0; y < canvas.height; y++) {
+		for (var x = 0; x < canvas.width; x++) {
+			// Get the color of the pixel
+			var index = (y * canvas.width + x) * 4;
+			var red = data[index];
+			var green = data[index + 1];
+			var blue = data[index + 2];
+
+			// Create a new vertex for the particle system
+			var vertex = new THREE.Vector3(x - canvas.width / 2, -y + canvas.height / 2, 0);
+
+			// Set the color of the vertex based on the color of the pixel
+			vertex.color = new THREE.Color('rgb(' + red + ',' + green + ',' + blue + ')');
+
+			// Add the vertex to the geometry
+			geometry.vertices.push(vertex);
+		}
+	}
+
+	// Create the material for the particle system
+	var material = new THREE.PointCloudMaterial({
+		size: 1,
+		vertexColors: THREE.VertexColors, // This allows us to use the colors we set for each vertex
+		map: imageTexture, // This texture will be applied to each particle
+		transparent: true
+	});
+
+	// Create the particle system and return it
+	var particles = new THREE.PointCloud(geometry, material);
+	return particles;
+}
+
+function convertSVGToThreeJS(svgString) {
+	const objects = [];
+
+	// Parse the SVG string into an SVG document
+	const parser = new DOMParser();
+	const svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+
+	// Loop through each child element of the SVG document
+	svgDoc.childNodes.forEach(childNode => {
+		// Create a new object for each child element
+		const object = new THREE.Object3D();
+
+		// Set the position of the object based on the child element's attributes
+		object.position.x = parseFloat(childNode.getAttribute("x")) || 0;
+		object.position.y = parseFloat(childNode.getAttribute("y")) || 0;
+		object.position.z = parseFloat(childNode.getAttribute("z")) || 0;
+
+		// Set the rotation of the object based on the child element's attributes
+		object.rotation.x = parseFloat(childNode.getAttribute("rx")) || 0;
+		object.rotation.y = parseFloat(childNode.getAttribute("ry")) || 0;
+		object.rotation.z = parseFloat(childNode.getAttribute("rz")) || 0;
+
+		// Set the scale of the object based on the child element's attributes
+		object.scale.x = parseFloat(childNode.getAttribute("scale-x")) || 1;
+		object.scale.y = parseFloat(childNode.getAttribute("scale-y")) || 1;
+		object.scale.z = parseFloat(childNode.getAttribute("scale-z")) || 1;
+
+		// Add the object to the array
+		objects.push(object);
+	});
+
+	return objects;
+}
+
+
+
+// Assuming your Three.js scene, camera, and renderer are already set up, 
+// you would have something like the following in your code:
+
+// const scene = existing scene
+// const camera = existing camera
+// const renderer = existing renderer
+
+const networkSVG = SVG.get('sprites/nn(2).svg');
+var loader = new THREE.TextureLoader();
+
+loader.load(
+	// resource URL
+	"sprites/img_4721.png",
+
+	// onLoad callback
+	function (texture) {
+		// the texture is fully loaded at this point
+
+		// Convert Image to Particles
+		const particles = createParticlesFromImage(texture);
+
+		scene.add(particles);
+
+		// Convert SVG to Three.js objects
+		const networkObjects = convertSVGToThreeJS(networkSVG);
+		networkObjects.forEach(function (object) {
+			scene.add(object);
+		});
+
+		// Position camera to view the whole scene
+		camera.position.z = 5; // adjust this value to fit your specific scene
+
+		// Create Animation Timeline
+		const timeline = GSAP.timeline();
+
+		timeline.to(particles.material.opacity, { value: 0, duration: 2 });
+		timeline.call(animateParticlesThroughNetwork, [particles, networkSVG], "+=2");
+		timeline.call(reformImageFromParticles, [particles], "+=2");
+
+		// If your animation loop is already running, just add GSAP.tick(); to it
+		function animate() {
+			GSAP.tick();
+			renderer.render(scene, camera);
+			requestAnimationFrame(animate);
+		}
+
+		// assuming 'scene' is your THREE.Scene instance
+		scene.add(particles);
+	},
+
+	// onProgress callback currently not supported
+	undefined,
+
+	// onError callback
+	function () {
+		console.error('An error occurred while loading the texture');
+	}
+);
 
 // Main --------------------------------------------------------
 /* exported main, updateGuiInfo */
@@ -873,7 +1030,7 @@ function run() {
 	renderer.clear();
 	update();
 	renderer.render( scene, camera );
-	stats.update();
+	// stats.update();
 	FRAME_COUNT ++;
 
 }
@@ -932,3 +1089,86 @@ function onWindowResize() {
 	renderer.setPixelRatio( pixelRatio );
 
 }
+
+// Carousel controls
+function Sliders(o) {
+	"use strict";
+	var time = o.time || 500,
+		autoTime = o.autoTime || 5000,
+		selector = o.selector,
+		width_height = o.width_height || 100 / 70,
+		sliders = document.querySelectorAll(selector),
+		i;
+	function css(elm, prop, val) {
+	  elm.style[prop] = val;
+	  prop = prop[0].toUpperCase() + prop.slice(1);
+	  elm.style["webkit" + prop] = elm.style["moz" + prop] =
+		elm.style["ms" + prop] = elm.style["o" + prop] = val;
+	}
+	function anonimFunc(slider) {
+	  var buttonLeft = slider.children[2],
+		  buttonRight = slider.children[1],
+		  ul = slider.children[0],
+		  li = ul.children,
+		  activeIndex = 0,
+		  isAnimate = false,
+		  i,
+		  s;
+	  ul.style.paddingTop = (100 / width_height) + "%";
+	  for (i = 0; i < li.length; i += 1) {
+		css(li[i], "animationDuration", time + "ms");
+	  }
+	  li[activeIndex].classList.add("active");
+	  function left() {
+		if (isAnimate) {return; }
+		clearTimeout(s);
+		isAnimate = true;
+		var nextIndex = (activeIndex < li.length - 1) ? (activeIndex + 1) : (0);
+		li[nextIndex].classList.add("next");
+		li[activeIndex].classList.add("left");
+		li[nextIndex].classList.add("active");
+		setTimeout(function () {
+		  li[activeIndex].classList.remove("active");
+		  li[activeIndex].classList.remove("left");
+		  li[nextIndex].classList.remove("next");
+		  li[nextIndex].classList.add("active");
+		  activeIndex = nextIndex;
+		  isAnimate = false;
+		  s = setTimeout(left, autoTime);
+		}, time);
+	  }
+	  function right() {
+		if (isAnimate) {return; }
+		clearTimeout(s);
+		isAnimate = true;
+		var nextIndex = (activeIndex > 0) ? (activeIndex - 1) : (li.length - 1);
+		li[nextIndex].classList.add("previous");
+		li[activeIndex].classList.add("right");
+		li[nextIndex].classList.add("active");
+		setTimeout(function () {
+		  li[activeIndex].classList.remove("active");
+		  li[activeIndex].classList.remove("right");
+		  li[nextIndex].classList.remove("previous");
+		  li[nextIndex].classList.add("active");
+		  activeIndex = nextIndex;
+		  isAnimate = false;
+		  s = setTimeout(right, autoTime);
+		}, time);
+	  }
+	  buttonLeft.addEventListener("click", left);
+	  buttonRight.addEventListener("click", right);
+	  s = setTimeout(right, autoTime);
+	}
+	for (i = 0; i < sliders.length; i += 1) {
+	  anonimFunc(sliders[i]);
+	}
+  }
+  
+  
+  /* -- how to use it ? -- */
+  var sliders = new Sliders({
+	selector: ".slider",
+	time: 500,
+	autoTime: 3000,
+	width_height: 350 / 250
+  });

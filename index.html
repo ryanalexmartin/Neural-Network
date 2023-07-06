@@ -1,12 +1,19 @@
 <!doctype html>
+
+<!-- Sets the viewport to fit the screen and disable zooming and minimal-ui -->
+<meta name="viewport"
+	content="viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
-	<title>Neural Network</title>
-	<link rel="stylesheet" href="css/app.css"/>
+	<title>Nazar</title>
+	<link rel="stylesheet" href="css/app.css" />
 </head>
-<body>
 
+<body>
 	<div id="loading">
 		<div class="spinner">
 			<div class="rect1"></div>
@@ -21,18 +28,143 @@
 
 	<div id="canvas-container"></div>
 	<div id="about">
-		<div style="text-align:center;">
-			<img src="webpage/Logo Final.svg" alt="about" style="max-width:33%;"/>
+		<div class="logo-header" style="text-align:center;">
+			<img id="logo" src="webpage/Logo Clean.svg" alt="nazar logo" />
+			<!-- <img id="logo" src="webpage/Logo Glow.svg" alt="nazar logo" /> -->
 		</div>
-		<div style="padding:40px;">
-			眼可觀其形 &nbsp; 吾可尋其跡
-		</div>
+		<div class="subtitle">
+			眼可觀其形 吾可尋其跡
 		</div>
 
-	<script src="js/vendor/vendor-merge.min.js"></script>
-	<script src="js/build/app.min.js"></script>
+		<div class="layout-flex">
+			<div class="info-box">
+				<div class="flex-row">
+					<div class="features">
+						<div class="feature-btn">
+							<a>
+								人工智能圖型辨識為核心
+							</a>
+						</div>
+						<div class="feature-btn">
+							<a>
+								傳統視覺檢測、量測有效替代方案
+							</a>
+						</div>
+						<div class="feature-btn">
+							<a>
+								最新的且複雜的圖像分割技術
+							</a>
+						</div>
+					</div>
+					<!-- TODO - grab a SWEET interactive photo gallery and use it here -->
+					<div class="photo-gallery">
+						<div class="slider">
+							<ul>
+							  <!-- <li>
+								<img src="https://source.unsplash.com/450x450/?girl">
+								<h1>Hello world</h1>
+								<p>
+								  Your content goes here...
+								</p>
+							  </li> -->
+							  <li><img src="sprites/kose.png"></li>
+							  <li><img src="sprites/contact.png"></li>
+							  <li><img src="sprites/lung.png"></li>
+							</ul>
+							<!-- left -->
+							<button></button>
+							<!-- right -->
+							<button></button>
+						  </div>
+						  
+							<script  src="./js/carousel.js"></script>		
+					</div>
+				</div>
+				<div class="intro-paragraph">
+					<a>
+						AI 時代下，科技產品爆發性成長， 傳統檢測系統已不堪負荷較複雜、 主觀及辨識度低的瑕疵檢測， 且繁雜的操作體驗降低使用者的 方便性與實用性Nazar 將為 AI 視覺辨識領域帶來更強大、
+						且能活用在各領域的檢測系統。
+					</a>
+				</div>
+			</div>
+			<form class="contact-form">
 
-	<!-- <script src="//localhost:35729/livereload.js"></script> -->
+				<a style="text-align: right;">
+					聯絡我們
+				</a>
+				<div class="form-group">
+					<a>
+						名字
+					</a>
+					<input type="text" class="form-input" id="name" placeholder="姓名">
+				</div>
+				<div class="form-group">
+					<a>
+						公司
+					</a>
+					<input type="text" class="form-input" id="name" placeholder="姓名">
+				</div>
+				<div class="form-group">
+					<a>
+						詢盤
+					</a>
+					<div class="form-input-with-button-container">
+						<!-- <textarea class="form-input-with-button" id="name" placeholder="姓名"> -->
+						<textarea name="textarea" class="form-input-with-button" style="resize: none"></textarea>
+						<div style="display:flex; justify-content:space-between; height:auto;">
+								<a href = "mailto: nazar@nazar-ai.com" style="font-size:10px; width:100%;">nazar@nazar-ai.com</a>
+						<button type="submit" class="btn-send">送出</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+	<h3 style="color:rgb(158, 227, 235)">Nazar，活用多元產業</h3>
+	<div class="paragraph">
+		AI 時代下，科技產品爆發性成長，
+		傳統檢測系統已不堪負荷較複雜、
+		主觀及辨識度低的瑕疵檢測，
+		且繁雜的操作體驗降低使用者的
+		方便性與實用性Nazar 將為 AI
+		視覺辨識領域帶來更強大、
+		且能活用在各領域的檢測系統
+	</div>
+	<h3>物件辨識</h3>
+	<div class="photo-gallery">
+		<img src="sprites/kose.png" alt="description of image">
+		<img src="sprites/contact.png" alt="description of image">
+		<img src="sprites/lung.png" alt="description of image">
+	</div>
+
+	<div class="paragraph">
+		目前在半導體、傳統製程和醫學影像領域中用於精確分析特徵
+	</div>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+	<h3><br /></h3>
+
+	</div>
+
+	<!-- use this when building releases -->
+	<!-- <script src="js/vendor/vendor-merge.min.js"></script>
+	<script src="js/build/app.min.js"></script> -->
+
+	<!-- non-minimized for debugging -->
+	<script src="js/vendor/vendor-merge.js"></script>
+	<script src="js/build/app.js"></script>
+
+	<!-- disable this when publishing -->
+	<script src="//localhost:35729/livereload.js"></script>
 
 </body>
+
 </html>
