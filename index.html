@@ -86,7 +86,6 @@
 				</div>
 			</div>
 			<form class="contact-form">
-
 				<a style="text-align: right;">
 					聯絡我們
 				</a>
@@ -94,13 +93,13 @@
 					<a>
 						名字
 					</a>
-					<input type="text" class="form-input" id="name" placeholder="姓名">
+					<input id="name" type="text" class="form-input" id="name" placeholder="姓名">
 				</div>
 				<div class="form-group">
 					<a>
 						公司
 					</a>
-					<input type="text" class="form-input" id="name" placeholder="姓名">
+					<input id="company" type="text" class="form-input" id="name" placeholder="公司">
 				</div>
 				<div class="form-group">
 					<a>
@@ -108,10 +107,10 @@
 					</a>
 					<div class="form-input-with-button-container">
 						<!-- <textarea class="form-input-with-button" id="name" placeholder="姓名"> -->
-						<textarea name="textarea" class="form-input-with-button" style="resize: none"></textarea>
+						<textarea id="inquiry" name="textarea" class="form-input-with-button" style="resize: none"></textarea>
 						<div style="display:flex; justify-content:space-between; height:auto;">
 								<a href = "mailto: nazar@nazar-ai.com" style="display:flex; justify-content: center; align-items: center; font-size:14px; width:100%;">nazar@nazar-ai.com</a>
-						<button type="submit" class="btn-send">送出</button>
+						<button id="send-button" class="btn-send">送出</button>
 						</div>
 					</div>
 				</div>
@@ -119,38 +118,10 @@
 		</div>
 
 
-	<h3 style="color:rgb(158, 227, 235)">Nazar，活用多元產業</h3>
-	<div class="paragraph">
-		AI 時代下，科技產品爆發性成長，
-		傳統檢測系統已不堪負荷較複雜、
-		主觀及辨識度低的瑕疵檢測，
-		且繁雜的操作體驗降低使用者的
-		方便性與實用性Nazar 將為 AI
-		視覺辨識領域帶來更強大、
-		且能活用在各領域的檢測系統
-	</div>
-	<h3>物件辨識</h3>
-	<div class="photo-gallery">
-		<img src="sprites/kose.png" alt="description of image">
-		<img src="sprites/contact.png" alt="description of image">
-		<img src="sprites/lung.png" alt="description of image">
-	</div>
+	<!-- <h3 style="color:rgb(158, 227, 235)">Nazar，活用多元產業</h3> -->
 
-	<div class="paragraph">
-		目前在半導體、傳統製程和醫學影像領域中用於精確分析特徵
-	</div>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-	<h3><br /></h3>
-
-	</div>
+	<!-- <iframe width="80%" height="auto" src="https://www.youtube.com/embed/i_Da1ZZ6i8w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+	<!-- <iframe min width="70%" style="aspect-ratio:16 / 9; margin-bottom: 80px;" height="auto" src="https://www.youtube.com/embed/DHUnz4dyb54?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
 
 	<!-- use this when building releases -->
 	<!-- <script src="js/vendor/vendor-merge.min.js"></script>
@@ -159,6 +130,7 @@
 	<!-- non-minimized for debugging -->
 	<script src="js/vendor/vendor-merge.js"></script>
 	<script src="js/build/app.js"></script>
+	<script src="js/form-send.js"></script>
 
 	<!-- disable this when publishing -->
 	<script src="//localhost:35729/livereload.js"></script>

@@ -172,6 +172,7 @@ a, a:visited {
 	margin: 20px 20px 20px 60px;
 	border-radius: 5px;
 	background: #0e2e437a;
+	color: #60869B;
 }
 
 
@@ -198,7 +199,7 @@ a, a:visited {
 	margin: 20px;
 }
 .feature-btn a {
-	color: #67A4FF;
+	color: #BFF7FF;
 	font-size: 28px;
 	font-style: normal;
 	/* font-family: GFS Neohellenic;  ---- not needed for Chinese*/
