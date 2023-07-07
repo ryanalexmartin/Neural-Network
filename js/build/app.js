@@ -1090,7 +1090,8 @@ function onWindowResize() {
 
 }
 
-// Carousel controls
+
+// Carousel
 function Sliders(o) {
 	"use strict";
 	var time = o.time || 500,
@@ -1172,3 +1173,14 @@ function Sliders(o) {
 	autoTime: 3000,
 	width_height: 350 / 250
   });
+const sendButton = document.querySelector('#send-button');
+sendButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const name = document.querySelector('#name').value;
+    const company = document.querySelector('#company').value;
+    const subject = name + ' from ' + company;
+    const inquiry = document.querySelector('#inquiry').value;
+    const body = inquiry;
+    email='nazar@nazar-ai.com'
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+});
