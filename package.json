@@ -17,7 +17,6 @@
     "jquery": "^2.1.4",
     "ndarray": "^1.0.16",
     "simplex-noise": "^4.0.1",
-    "svg.js": "^2.7.1",
     "three": "^0.153.0",
     "three-addons": "^1.2.0",
     "underscore": "^1.8.3"

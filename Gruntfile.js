@@ -32,7 +32,7 @@ module.exports = function ( grunt ) {
 				// footer: ''
 			},
 			build: {
-				src: [ 'js/neuron.js', 'js/signal.js', 'js/particlePool.js', 'js/particle.js', 'js/axon.js', 'js/neuralNet.js',
+				src: [ 'js/neuron.js', 'js/signal.js', 'js/particlePool.js', 'js/particle.js', 'js/axon.js', 'js/neuralnet.js',
 						 'js/loaders.js', 'js/scene.js', 'js/main.js', 'js/gui.js', 'js/run.js', 'js/events.js', 'js/vectorAnimations.js', 
 						 'js/carousel.js', 'js/form-send.js' ],
 
@@ -40,8 +40,8 @@ module.exports = function ( grunt ) {
 			},
 			vendor: {
 				src: [ 'js/vendor/underscore.js', 'js/vendor/jquery.min.js', 'js/vendor/Detector.js', 'js/vendor/dat.gui.min.js',
-						 'js/vendor/stats.min.js', 'js/vendor/three.js', 'js/vendor/OrbitControls.js', 'js/vendor/OBJLoader.js', 'js/vendor/svg.js', 
-						 'js/vendor/gsap.js', 'js/vendor/SVGRenderer.js', 'js/vendor/Projector.js' ],
+						 'js/vendor/stats.min.js', 'js/vendor/three.js', 'js/vendor/OrbitControls.js', 'js/vendor/OBJLoader.js', 
+						 'js/vendor/gsap.js', 'js/vendor/Projector.js' ],
 
 				dest: 'js/vendor/vendor-merge.js'
 			}

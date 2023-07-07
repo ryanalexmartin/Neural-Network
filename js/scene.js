@@ -96,89 +96,89 @@ scene.add( light );
 // vector animation (new)
 
 
-function createParticlesFromImage(imageTexture) {
-	// Create a canvas to draw the image
-	var canvas = document.createElement('canvas');
-	var context = canvas.getContext('2d');
+// function createParticlesFromImage(imageTexture) {
+// 	// Create a canvas to draw the image
+// 	var canvas = document.createElement('canvas');
+// 	var context = canvas.getContext('2d');
 
-	// Draw the image onto the canvas
-	canvas.width = imageTexture.image.width;
-	canvas.height = imageTexture.image.height;
-	context.drawImage(imageTexture.image, 0, 0, canvas.width, canvas.height);
+// 	// Draw the image onto the canvas
+// 	canvas.width = imageTexture.image.width;
+// 	canvas.height = imageTexture.image.height;
+// 	context.drawImage(imageTexture.image, 0, 0, canvas.width, canvas.height);
 
-	// Get the image data from the canvas
-	var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-	var data = imageData.data;
+// 	// Get the image data from the canvas
+// 	var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+// 	var data = imageData.data;
 
-	// Create the particle system geometry
-	var geometry = new THREE.Geometry();
+// 	// Create the particle system geometry
+// 	var geometry = new THREE.Geometry();
 
-	// For each pixel in the image, create a vertex in the geometry
-	for (var y = 0; y < canvas.height; y++) {
-		for (var x = 0; x < canvas.width; x++) {
-			// Get the color of the pixel
-			var index = (y * canvas.width + x) * 4;
-			var red = data[index];
-			var green = data[index + 1];
-			var blue = data[index + 2];
+// 	// For each pixel in the image, create a vertex in the geometry
+// 	for (var y = 0; y < canvas.height; y++) {
+// 		for (var x = 0; x < canvas.width; x++) {
+// 			// Get the color of the pixel
+// 			var index = (y * canvas.width + x) * 4;
+// 			var red = data[index];
+// 			var green = data[index + 1];
+// 			var blue = data[index + 2];
 
-			// Create a new vertex for the particle system
-			var vertex = new THREE.Vector3(x - canvas.width / 2, -y + canvas.height / 2, 0);
+// 			// Create a new vertex for the particle system
+// 			var vertex = new THREE.Vector3(x - canvas.width / 2, -y + canvas.height / 2, 0);
 
-			// Set the color of the vertex based on the color of the pixel
-			vertex.color = new THREE.Color('rgb(' + red + ',' + green + ',' + blue + ')');
+// 			// Set the color of the vertex based on the color of the pixel
+// 			vertex.color = new THREE.Color('rgb(' + red + ',' + green + ',' + blue + ')');
 
-			// Add the vertex to the geometry
-			geometry.vertices.push(vertex);
-		}
-	}
+// 			// Add the vertex to the geometry
+// 			geometry.vertices.push(vertex);
+// 		}
+// 	}
 
-	// Create the material for the particle system
-	var material = new THREE.PointCloudMaterial({
-		size: 1,
-		vertexColors: THREE.VertexColors, // This allows us to use the colors we set for each vertex
-		map: imageTexture, // This texture will be applied to each particle
-		transparent: true
-	});
+// 	// Create the material for the particle system
+// 	var material = new THREE.PointCloudMaterial({
+// 		size: 1,
+// 		vertexColors: THREE.VertexColors, // This allows us to use the colors we set for each vertex
+// 		map: imageTexture, // This texture will be applied to each particle
+// 		transparent: true
+// 	});
 
-	// Create the particle system and return it
-	var particles = new THREE.PointCloud(geometry, material);
-	return particles;
-}
+// 	// Create the particle system and return it
+// 	var particles = new THREE.PointCloud(geometry, material);
+// 	return particles;
+// }
 
-function convertSVGToThreeJS(svgString) {
-	const objects = [];
+// function convertSVGToThreeJS(svgString) {
+// 	const objects = [];
 
-	// Parse the SVG string into an SVG document
-	const parser = new DOMParser();
-	const svgDoc = parser.parseFromString(svgString, "image/svg+xml");
+// 	// Parse the SVG string into an SVG document
+// 	const parser = new DOMParser();
+// 	const svgDoc = parser.parseFromString(svgString, "image/svg+xml");
 
-	// Loop through each child element of the SVG document
-	svgDoc.childNodes.forEach(childNode => {
-		// Create a new object for each child element
-		const object = new THREE.Object3D();
+// 	// Loop through each child element of the SVG document
+// 	svgDoc.childNodes.forEach(childNode => {
+// 		// Create a new object for each child element
+// 		const object = new THREE.Object3D();
 
-		// Set the position of the object based on the child element's attributes
-		object.position.x = parseFloat(childNode.getAttribute("x")) || 0;
-		object.position.y = parseFloat(childNode.getAttribute("y")) || 0;
-		object.position.z = parseFloat(childNode.getAttribute("z")) || 0;
+// 		// Set the position of the object based on the child element's attributes
+// 		object.position.x = parseFloat(childNode.getAttribute("x")) || 0;
+// 		object.position.y = parseFloat(childNode.getAttribute("y")) || 0;
+// 		object.position.z = parseFloat(childNode.getAttribute("z")) || 0;
 
-		// Set the rotation of the object based on the child element's attributes
-		object.rotation.x = parseFloat(childNode.getAttribute("rx")) || 0;
-		object.rotation.y = parseFloat(childNode.getAttribute("ry")) || 0;
-		object.rotation.z = parseFloat(childNode.getAttribute("rz")) || 0;
+// 		// Set the rotation of the object based on the child element's attributes
+// 		object.rotation.x = parseFloat(childNode.getAttribute("rx")) || 0;
+// 		object.rotation.y = parseFloat(childNode.getAttribute("ry")) || 0;
+// 		object.rotation.z = parseFloat(childNode.getAttribute("rz")) || 0;
 
-		// Set the scale of the object based on the child element's attributes
-		object.scale.x = parseFloat(childNode.getAttribute("scale-x")) || 1;
-		object.scale.y = parseFloat(childNode.getAttribute("scale-y")) || 1;
-		object.scale.z = parseFloat(childNode.getAttribute("scale-z")) || 1;
+// 		// Set the scale of the object based on the child element's attributes
+// 		object.scale.x = parseFloat(childNode.getAttribute("scale-x")) || 1;
+// 		object.scale.y = parseFloat(childNode.getAttribute("scale-y")) || 1;
+// 		object.scale.z = parseFloat(childNode.getAttribute("scale-z")) || 1;
 
-		// Add the object to the array
-		objects.push(object);
-	});
+// 		// Add the object to the array
+// 		objects.push(object);
+// 	});
 
-	return objects;
-}
+// 	return objects;
+// }
 
 
 
@@ -189,54 +189,54 @@ function convertSVGToThreeJS(svgString) {
 // const camera = existing camera
 // const renderer = existing renderer
 
-const networkSVG = SVG.get('sprites/nn(2).svg');
-var loader = new THREE.TextureLoader();
+// const networkSVG = SVG.get('sprites/nn(2).svg');
+// var loader = new THREE.TextureLoader();
 
-loader.load(
-	// resource URL
-	"sprites/img_4721.png",
+// loader.load(
+// 	// resource URL
+// 	"sprites/img_4721.png",
 
-	// onLoad callback
-	function (texture) {
-		// the texture is fully loaded at this point
+// 	// onLoad callback
+// 	function (texture) {
+// 		// the texture is fully loaded at this point
 
-		// Convert Image to Particles
-		const particles = createParticlesFromImage(texture);
+// 		// Convert Image to Particles
+// 		const particles = createParticlesFromImage(texture);
 
-		scene.add(particles);
+// 		scene.add(particles);
 
-		// Convert SVG to Three.js objects
-		const networkObjects = convertSVGToThreeJS(networkSVG);
-		networkObjects.forEach(function (object) {
-			scene.add(object);
-		});
+// 		// Convert SVG to Three.js objects
+// 		// const networkObjects = convertSVGToThreeJS(networkSVG);
+// 		// networkObjects.forEach(function (object) {
+// 		// 	scene.add(object);
+// 		// });
 
-		// Position camera to view the whole scene
-		camera.position.z = 5; // adjust this value to fit your specific scene
+// 		// Position camera to view the whole scene
+// 		camera.position.z = 5; // adjust this value to fit your specific scene
 
-		// Create Animation Timeline
-		const timeline = GSAP.timeline();
+// 		// Create Animation Timeline
+// 		// const timeline = GSAP.timeline();
 
-		timeline.to(particles.material.opacity, { value: 0, duration: 2 });
-		timeline.call(animateParticlesThroughNetwork, [particles, networkSVG], "+=2");
-		timeline.call(reformImageFromParticles, [particles], "+=2");
+// 		timeline.to(particles.material.opacity, { value: 0, duration: 2 });
+// 		timeline.call(animateParticlesThroughNetwork, [particles, networkSVG], "+=2");
+// 		timeline.call(reformImageFromParticles, [particles], "+=2");
 
-		// If your animation loop is already running, just add GSAP.tick(); to it
-		function animate() {
-			GSAP.tick();
-			renderer.render(scene, camera);
-			requestAnimationFrame(animate);
-		}
+// 		// If your animation loop is already running, just add GSAP.tick(); to it
+// 		function animate() {
+// 			GSAP.tick();
+// 			renderer.render(scene, camera);
+// 			requestAnimationFrame(animate);
+// 		}
 
-		// assuming 'scene' is your THREE.Scene instance
-		scene.add(particles);
-	},
+// 		// assuming 'scene' is your THREE.Scene instance
+// 		scene.add(particles);
+// 	},
 
-	// onProgress callback currently not supported
-	undefined,
+// 	// onProgress callback currently not supported
+// 	undefined,
 
-	// onError callback
-	function () {
-		console.error('An error occurred while loading the texture');
-	}
-);
+// 	// onError callback
+// 	function () {
+// 		console.error('An error occurred while loading the texture');
+// 	}
+// );
